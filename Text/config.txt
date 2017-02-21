@@ -1,0 +1,15 @@
+log_dir = Log/
+download_dir = Image/2.Download/
+arrange_dir = Image/3.Arrange/
+done_dir = Image/5.Done/
+updating_dir = Image/5.Updating/
+base_url1 = http://www.javl10.com/cn/
+base_url2 = http://www.j12lib.com/cn/
+base_url3 = http://www.jav11b.com/cn
+base_url = http://www.javlibrary.com/cn/
+search_url1 = http://www.javl10.com/cn/vl_searchbyid.php?keyword=
+search_url2 = http://www.j12lib.com/cn/vl_searchbyid.php?keyword=
+search_url3 = http://www.jav11b.com/cn/vl_searchbyid.php?keyword=
+search_url = http://www.javlibrary.com/cn/vl_searchbyid.php?keyword=
+retry_times = 5
+workbook = result.xlsx
