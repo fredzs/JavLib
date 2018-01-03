@@ -1,6 +1,7 @@
 import logging
 import os
 from functools import reduce
+import requests
 from urllib.request import urlretrieve
 
 from Entity.Config import Config
@@ -8,6 +9,18 @@ from Entity.Statistic import Statistic
 from Entity.Status import Status
 from Utility.Utility import Utility
 
+headers = {
+        'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        'Accept-Encoding': "gzip, deflate, sdch",
+        'Accept-Language': "zh-CN,zh;q=0.8,pt;q=0.6,en;q=0.4,th;q=0.2",
+        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36",
+        'Referer': "http://www.javlibrary.com/cn/",
+        'Upgrade-Insecure-Requests': "1",
+        'Connection': "keep-alive",
+        'Host': "www.javlibrary.com"
+}
+proxies = dict(http='socks5://127.0.0.1:1080', https='socks5://127.0.0.1:1080')
 
 class ItemService(object):
     # 下载图片到本地
@@ -22,7 +35,14 @@ class ItemService(object):
         result = Status.SAVE_FAILED
         for i in range(0, save_times):
             try:
-                urlretrieve(item.get_img_src, path)
+                #urllib.request.urlretrieve(item.get_img_src, path)
+
+                item_image = requests.get(item.get_img_src, headers=headers, proxies=proxies, stream=True)
+                with open(path, mode='wb') as f:
+                    for chunk in item_image.iter_content(chunk_size=1024):
+                        if chunk:  # filter out keep-alive new chunks
+                            f.write(chunk)
+                            f.flush()
             except Exception as e:
                 Statistic.download_failed()
                 logging.error("\t图片保存失败!")

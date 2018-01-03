@@ -180,8 +180,8 @@ def key_check_new():
     logging.info('----------开始更新----------')
     base_dir = Config.get_config_field()['updating_dir']
     updating_list = os.listdir(base_dir)
-    start_index = updating_list.index('NTRD') + 1
-    for key in updating_list[start_index:]:
+    # start_index = updating_list.index('NTRD') + 1
+    for key in updating_list:
         try:
             start = Utility.find_num(DBItemService.db_find_max_code(key)) + 1
             global retry
@@ -242,9 +242,9 @@ def handle_status(item, status, db, image, dst_dir):
 if "__main__" == __name__:
     logging.info('----------程序开始执行----------')
     # search_codes()
-    # search_keys()
+    search_keys()
     # key_check_new()
-    # db_update()
+    #db_update()
     # db_add()
     download_failed()
     logging.info('----------程序执行结束----------')
