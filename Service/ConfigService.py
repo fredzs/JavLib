@@ -6,7 +6,7 @@ from Service.KeyService import KeyService
 class ConfigService(object):
     @staticmethod
     def init():
-        ConfigService.read_config("Text/config.txt")
+        ConfigService.read_config("Tconfig.txt")
         ConfigService.read_key_list("Text/key_list.txt")
         ConfigService.read_code_list("Text/code_list.txt")
 
